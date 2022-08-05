@@ -1,0 +1,74 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.googleapis.com/oauth2/v3/certs
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - www.googleapis.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Server:
+      - scaffolding on HTTPServer2
+      Content-Length:
+      - '741'
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Date:
+      - Fri, 05 Aug 2022 16:56:58 GMT
+      Expires:
+      - Fri, 05 Aug 2022 23:42:15 GMT
+      Cache-Control:
+      - public, max-age=24317, must-revalidate, no-transform
+      Content-Type:
+      - application/json; charset=UTF-8
+      Age:
+      - '58'
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "keys": [
+            {
+              "kty": "RSA",
+              "kid": "1549e0aef574d1c7bdd136c202b8d290580b165c",
+              "n": "stD2wMn0tZrAn8FnW9LdQozV9qNatcdbJ6R7V6ag5XNzJdFfdD5vOOGw5n8SJ-vqg69rK322kha5vkLODd6hdtn5R0KMiOVAD8Gf8DmKfSafSBZm7ImacVawagdvBcVGfiLqQEXavRLcDDLsTOAI9sIyH6KU2Rmg9RUdFbgTyZj_9mp4vzHIBG8ED71oqHv41KX4v3Ku4kE7x93a34QOdqkKXn6GZUCbC9urWB4UNX7rg_Bds2pfwutC3QhWS109GnPO7Mvt_XaUOyKavwiMNH4Bv7nD9rGflffh7WYmzosQPZvyY5b9Flhiev180DPfQ7J5vca5MO263AyWBv4roQ",
+              "e": "AQAB",
+              "alg": "RS256",
+              "use": "sig"
+            },
+            {
+              "use": "sig",
+              "kty": "RSA",
+              "e": "AQAB",
+              "alg": "RS256",
+              "n": "4DauU23AEpgBg3zJbqT8Fn-Zf817ru1moUjG75yJ-T0NpuQiggrXPn2YoKgo_qtnYloZh-RLjFfRv_Jb47riZhV5vsW7PiMR4MjlXgMWQlWG7kD9cIH5cTzBuEAzCkZZDu7XFkTfWUtRdWS5iKBjfQ465Qi5yFqfh7iHbQoKiN32pkWDI4MG8CUQC-YDbz77IRMpD39ZzNxkxYqbeJ226MrgKVGHFbmZLZPX8VX4r45NZifkPHa5-G5YDxaL622fkTqgPkyJtFOMy08X6K4BtVV0ZUJqi19bzEW970aI13seu0BzBsIspZ2NSPtljQqQFJTcW1EAmOCB5iNDi3J0mQ",
+              "kid": "fda1066453dc9dc3dd933a41ea57da3ef242b0f7"
+            }
+          ]
+        }
+  recorded_at: Fri, 05 Aug 2022 16:57:56 GMT
+recorded_with: VCR 6.1.0
