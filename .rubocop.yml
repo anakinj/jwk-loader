@@ -16,3 +16,6 @@ Layout/LineLength:
 Naming/FileName:
   Exclude:
     - 'lib/jwk-loader.rb'
+
+Style/Documentation:
+  Enabled: false
