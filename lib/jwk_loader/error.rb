@@ -3,5 +3,5 @@
 module JwkLoader
   class Error < StandardError; end
 
-  class JwkSetError < Error; end
+  class JwksLoadError < Error; end
 end

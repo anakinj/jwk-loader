@@ -3,5 +3,6 @@
 require "jwt"
 
 require_relative "jwk_loader/version"
-require_relative "jwk_loader/jwk_set"
+require_relative "jwk_loader/jwks"
+require_relative "jwk_loader/jwks_provider"
 require_relative "jwk_loader/error"
