@@ -14,11 +14,24 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-TODO: Write usage instructions here
+This gem can be used in combination with the [jwt](https://rubygems.org/gems/jwt) gem as the mechanism to load and cache the JWKs in the application.
+
+### Using as a jwks loader when decoding JWT tokens
+
+```
+require "jwt"
+require "jwk-loader"
+
+JWT.decode(token, nil, true, algorithm: "RS512", jwks: JwkLoader.for_uri(uri: "https://url/to/public/jwks") )
+```
+
+### Configuring the gem
+
+TODO: Will probably be implemented at some point
 
 ## Development
 
-After checking out the repo, run `bundle install` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bundle install` to install dependencies. Then, run `bundle exec rspec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 ## Contributing
 

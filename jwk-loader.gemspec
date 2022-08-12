@@ -31,5 +31,5 @@ Gem::Specification.new do |spec|
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
-  spec.add_dependency "jwt", "< 3"
+  spec.add_dependency "concurrent-ruby"
 end

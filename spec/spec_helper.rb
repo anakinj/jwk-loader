@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
-require "jwk-loader"
 require "webmock"
 require "vcr"
 require "simplecov"
+require "jwt"
 
 SimpleCov.start
+
+require "jwk-loader"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -16,6 +18,10 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  config.before(:each) do
+    ::JwkLoader.cache.clear
   end
 end
 

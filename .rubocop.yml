@@ -18,5 +18,9 @@ Naming/FileName:
   Exclude:
     - 'lib/jwk-loader.rb'
 
+Metrics/BlockLength:
+  Exclude:
+   - 'spec/**/*.rb'
+
 Style/Documentation:
   Enabled: false
