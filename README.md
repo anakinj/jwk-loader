@@ -1,6 +1,6 @@
 # JwkLoader
 
-TODO: Write something useful
+This gem can be used in combination with the [jwt](https://rubygems.org/gems/jwt) gem as the mechanism to load and cache the JWKs in the application.
 
 ## Installation
 
@@ -13,8 +13,6 @@ If bundler is not being used to manage dependencies, install the gem by executin
     $ gem install jwk-loader
 
 ## Usage
-
-This gem can be used in combination with the [jwt](https://rubygems.org/gems/jwt) gem as the mechanism to load and cache the JWKs in the application.
 
 ### Using as a jwks loader when decoding JWT tokens
 
