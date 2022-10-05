@@ -17,6 +17,7 @@ Layout/LineLength:
 Naming/FileName:
   Exclude:
     - 'lib/jwk-loader.rb'
+    - 'spec/jwk-loader_spec.rb'
 
 Metrics/BlockLength:
   Exclude:

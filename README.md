@@ -25,7 +25,14 @@ JWT.decode(token, nil, true, algorithm: "RS512", jwks: JwkLoader.for_uri(uri: "h
 
 ### Configuring the gem
 
-TODO: Will probably be implemented at some point
+```ruby
+require "jwt-loader"
+
+JwkLoader.configure do |config|
+  config[:cache] = YetAnotherCache.new
+  config[:cache_grace_period] = 999
+end
+```
 
 ## Development
 

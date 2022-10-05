@@ -8,9 +8,9 @@ module JwkLoader
   class JwksUriProvider
     attr_reader :uri, :cache, :cache_grace_period
 
-    def initialize(uri:, cache: JwkLoader.cache, cache_grace_period: 900)
+    def initialize(uri:, cache:, cache_grace_period:)
       @uri          = uri
-      @cache        = cache || MemoryCache.new
+      @cache        = cache
       @cache_grace_period = cache_grace_period
     end
 
