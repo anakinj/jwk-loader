@@ -38,6 +38,20 @@ RSpec.describe JwkLoader do
         expect(provider.cache).to be_a(YetAnotherCache)
         expect(provider.cache_grace_period).to eq(cache_grace_period)
       end
+
+      context "when using accessors" do
+        before do
+          JwkLoader.configure do |cfg|
+            cfg.cache = cache
+            cfg.cache_grace_period = cache_grace_period
+          end
+        end
+
+        it "returns a provider with the given configuration" do
+          expect(provider.cache).to be_a(YetAnotherCache)
+          expect(provider.cache_grace_period).to eq(cache_grace_period)
+        end
+      end
     end
   end
 end
