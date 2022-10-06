@@ -34,6 +34,17 @@ JwkLoader.configure do |config|
 end
 ```
 
+or in alternative
+
+```ruby
+require "jwt-loader"
+
+JwkLoader.configure do |config|
+  config.cache = YetAnotherCache.new
+  config.cache_grace_period = 999
+end
+```
+
 ## Development
 
 After checking out the repo, run `bundle install` to install dependencies. Then, run `bundle exec rspec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
