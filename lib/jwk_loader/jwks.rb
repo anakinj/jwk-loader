@@ -14,6 +14,10 @@ module JwkLoader
         from_json(response.body)
       end
 
+      def from_memory(uri)
+        JwkLoader.memory_store.fetch(uri)
+      end
+
       def from_json(jwks_json)
         JSON.parse(jwks_json, symbolize_names: true)
       end

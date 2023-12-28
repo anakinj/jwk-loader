@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 module JwkLoader
-  def self.cache
-    @cache ||= MemoryCache.new
-  end
-
   class JwksUriProvider
     attr_reader :uri, :cache, :cache_grace_period
 
@@ -22,7 +18,7 @@ module JwkLoader
     private
 
     def jwks
-      from_cache || from_uri
+      from_cache || from_memory || from_uri
     end
 
     def invalidate_cache!
@@ -35,12 +31,17 @@ module JwkLoader
       cache_entry&.fetch(:jwks)
     end
 
+    def from_memory
+      JwkLoader::Jwks.from_memory(uri)
+    end
+
     def cache_entry
       cache.fetch(uri)
     end
 
     def from_uri
-      JwkLoader::Jwks.from_uri(uri).tap do |jwks|
+      data = JwkLoader::Jwks.from_uri(uri)
+      JWT::JWK::Set.new(data).tap do |jwks|
         cache.store(uri, jwks: jwks, fetched_at: Time.now)
       end
     end

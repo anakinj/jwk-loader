@@ -16,11 +16,32 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ### Using as a jwks loader when decoding JWT tokens
 
-```
+```ruby
 require "jwt"
 require "jwk-loader"
 
 JWT.decode(token, nil, true, algorithm: "RS512", jwks: JwkLoader.for_uri(uri: "https://url/to/public/jwks") )
+```
+
+### Testing endpoints protected by JWT tokens
+
+When testing HTTP endpoints protected by asymmetric JWT keys the mechanism in `jwk_loader/test` can be used to simplify the process.
+
+```ruby
+require 'jwk_loader/test'
+
+RSpec.describe 'GET /protected' do
+  include JwkLoader::Test
+
+  context 'when called with a valid token' do
+    let(:token) { sign_test_token(token_payload: { user_id: 'user' }, jwk_endpoint: 'https://url/to/public/jwks') }
+    subject(:response) { get('/protected', { 'HTTP_AUTHORIZATION' => "Bearer #{token}" }) }
+
+    it 'is a success' do
+      expect(response.status).to eq(200)
+    end
+  end
+end
 ```
 
 ### Configuring the gem
@@ -44,6 +65,7 @@ JwkLoader.configure do |config|
   config.cache_grace_period = 999
 end
 ```
+
 
 ## Development
 
