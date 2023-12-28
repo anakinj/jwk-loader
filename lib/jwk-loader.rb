@@ -15,17 +15,27 @@ module JwkLoader
       JwksUriProvider.new(**options)
     end
 
+    def cache
+      config[:cache]
+    end
+
     def configure
       yield config
     end
-
-    private
 
     def config
       @config ||= JwkLoader::Config.new.tap do |cfg|
         cfg[:cache] = MemoryCache.new
         cfg[:cache_grace_period] = 900
       end
+    end
+
+    def reset!
+      @config = nil
+    end
+
+    def memory_store
+      @memory_store ||= MemoryCache.new
     end
   end
 end

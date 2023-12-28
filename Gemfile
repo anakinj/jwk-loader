@@ -11,5 +11,3 @@ gem "rubocop", "~> 1.32.0"
 gem "simplecov"
 gem "vcr"
 gem "webmock"
-
-gem "jwt"
