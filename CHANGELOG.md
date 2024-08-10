@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/anakinj/jwk-loader/compare/v1.0.0...v1.1.0) (2024-08-10)
+
+
+### Features
+
+* Official support for Ruby 3.2 and 3.3 ([2f6079f](https://github.com/anakinj/jwk-loader/commit/2f6079fd490a4918524974ffb1d897abbf875787))
+
 ## [1.0.0](https://github.com/anakinj/jwk-loader/compare/v0.1.1...v1.0.0) (2023-12-28)
 
 ### Features
