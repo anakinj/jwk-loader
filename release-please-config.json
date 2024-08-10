@@ -1,0 +1,9 @@
+{
+  "release-type": "ruby",
+  "include-v-in-tag": true,
+  "packages": {
+    ".": {
+      "version-file": "lib/jwt/eddsa/version.rb"
+    }
+  }
+}
