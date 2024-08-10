@@ -21,7 +21,7 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
-    ::JwkLoader.reset!
+    JwkLoader.reset!
   end
 end
 
