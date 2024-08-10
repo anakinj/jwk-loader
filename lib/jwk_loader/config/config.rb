@@ -4,7 +4,7 @@ module JwkLoader
   class Config
     class ConfigurationNotFound < JwkLoader::Error
       def initialize(key)
-        super("Configuration for #{key} not available")
+        super "Configuration for #{key} not available"
       end
     end
 

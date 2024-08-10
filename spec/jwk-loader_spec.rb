@@ -3,7 +3,7 @@
 RSpec.describe JwkLoader do
   describe ".configure" do
     it "yields config" do
-      expect { |b| JwkLoader.configure(&b) }.to yield_with_args(JwkLoader::Config)
+      expect { |b| JwkLoader.configure(&b) }.to yield_with_args(::JwkLoader::Config)
     end
   end
 
@@ -14,7 +14,7 @@ RSpec.describe JwkLoader do
 
     context "when no configuration is given" do
       it "returns a provider with the default configuration" do
-        expect(provider.cache).to be_a(JwkLoader::MemoryCache)
+        expect(provider.cache).to be_a(::JwkLoader::MemoryCache)
         expect(provider.cache_grace_period).to eq(900)
       end
     end
