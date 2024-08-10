@@ -6,7 +6,7 @@ RSpec.describe JwkLoader::JwksUriProvider do
   end
 
   let(:token) { JWT.encode({ "pay" => "load" }, jwk.keypair, "RS512", { kid: jwk.kid }) }
-  let(:cache) { ::JwkLoader.cache }
+  let(:cache) { JwkLoader.cache }
 
   subject(:jwks_provider) { JwkLoader.for_uri(uri: "https://www.googleapis.com/oauth2/v3/certs", cache: cache) }
 

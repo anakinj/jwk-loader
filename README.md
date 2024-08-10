@@ -1,6 +1,9 @@
-# JwkLoader
+# jwk-loader
 
-This gem can be used in combination with the [jwt](https://rubygems.org/gems/jwt) gem as the mechanism to load and cache the JWKs in the application.
+[![Gem Version](https://badge.fury.io/rb/jwk-loader.svg)](https://badge.fury.io/rb/jwk-loader)
+[![Build status](https://github.com/anakinj/jwk-loader/actions/workflows/test.yml/badge.svg)](https://github.com/anakinj/jwk-loader/actions/workflows/test.yml)
+
+This gem can be used in combination with the [ruby-jwt](https://rubygems.org/gems/jwt) gem as the mechanism to load and cache the JWKs.
 
 ## Installation
 
@@ -34,7 +37,7 @@ RSpec.describe 'GET /protected' do
   include JwkLoader::Test
 
   context 'when called with a valid token' do
-    let(:token) { sign_test_token(token_payload: { user_id: 'user' }, jwk_endpoint: 'https://url/to/public/jwks') }
+    let(:token) { sign_test_token(token_payload: { user_id: "user" }, jwk_endpoint: "https://url/to/public/jwks") }
     subject(:response) { get('/protected', { 'HTTP_AUTHORIZATION' => "Bearer #{token}" }) }
 
     it 'is a success' do
