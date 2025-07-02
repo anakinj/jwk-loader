@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/anakinj/jwk-loader/compare/v1.1.0...v1.2.0) (2025-07-02)
+
+
+### Features
+
+* Allow jwt 3 ([#12](https://github.com/anakinj/jwk-loader/issues/12)) ([6c8b0f9](https://github.com/anakinj/jwk-loader/commit/6c8b0f9164b104921f1b509d2935bf61562e9d57))
+
+
+### Bug Fixes
+
+* CI for Ruby 3.5 ([#13](https://github.com/anakinj/jwk-loader/issues/13)) ([b7c0ed1](https://github.com/anakinj/jwk-loader/commit/b7c0ed1dc3f31df9464275ad681f53ee14fb794c))
+
 ## [1.1.0](https://github.com/anakinj/jwk-loader/compare/v1.0.0...v1.1.0) (2024-08-10)
 
 
