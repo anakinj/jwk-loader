@@ -22,7 +22,10 @@ module JwkLoader
       send(:[], name, *args)
     end
 
-    def respond_to_missing?(_name, _include_private)
+    def respond_to_missing?(name, _include_private)
+      # Don't claim to respond to Ruby's internal methods
+      return false if name.to_s.start_with?("instance_variables_")
+
       true
     end
 
