@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "webmock"
+require "webmock/rspec"
 require "vcr"
 require "simplecov"
 require "jwt"

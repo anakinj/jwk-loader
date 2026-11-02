@@ -26,6 +26,20 @@ require "jwk-loader"
 JWT.decode(token, nil, true, algorithm: "RS512", jwks: JwkLoader.for_uri(uri: "https://url/to/public/jwks") )
 ```
 
+### Handling loading errors
+
+Non-2xx JWKS responses raise native HTTP errors before JSON parsing; handle `Net::HTTPExceptions` alongside `JWT::DecodeError`. Invalid URIs, connection/TLS failures, timeouts, malformed JSON, and invalid keys propagate unchanged; examples include `URI::InvalidURIError`, `Net::OpenTimeout`, `JSON::ParserError`, or `JWT::JWKError`.
+
+```ruby
+class AuthenticationError < StandardError; end
+
+begin
+  JWT.decode(token, nil, true, algorithm: "RS512", jwks: JwkLoader.for_uri(uri: jwks_uri))
+rescue Net::HTTPExceptions, JWT::DecodeError => error
+  raise AuthenticationError, "Token verification failed", cause: error
+end
+```
+
 ### Testing endpoints protected by JWT tokens
 
 When testing HTTP endpoints protected by asymmetric JWT keys the mechanism in `jwk_loader/test` can be used to simplify the process.
