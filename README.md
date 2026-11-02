@@ -63,6 +63,8 @@ end
 
 ### Configuring the gem
 
+The default `cache_grace_period` is 900 seconds, measured from the last successful fetch. An unknown-key or explicit invalidation hint can refresh a cached set once that period has elapsed; it is a refresh cooldown, not a maximum lifetime for known keys. Refreshing leaves the previous cached set available until its replacement has loaded successfully.
+
 ```ruby
 require "jwt-loader"
 
@@ -83,6 +85,7 @@ JwkLoader.configure do |config|
 end
 ```
 
+A failed refresh propagates the original loading exception for both `kid_not_found` and `invalidate` hints, without deleting the previous set or changing its timestamp. The triggering `JWT.decode` call fails with that exception. Subsequent ordinary lookups can still use the preserved keys. Since failures do not advance the timestamp, a later refresh hint can retry; there is no separate failed-fetch cooldown.
 
 Invalidation hints are safe when the cache entry is absent or has been evicted: the provider performs an ordinary lookup, using locally supplied test keys or fetching the URI when needed.
 
