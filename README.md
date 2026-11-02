@@ -70,6 +70,8 @@ end
 ```
 
 
+Invalidation hints are safe when the cache entry is absent or has been evicted: the provider performs an ordinary lookup, using locally supplied test keys or fetching the URI when needed.
+
 ## Development
 
 After checking out the repo, run `bundle install` to install dependencies. Then, run `bundle exec rspec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

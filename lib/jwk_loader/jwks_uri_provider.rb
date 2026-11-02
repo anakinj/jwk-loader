@@ -22,7 +22,8 @@ module JwkLoader
     end
 
     def invalidate_cache!
-      return if Time.now - cache_entry.fetch(:fetched_at) < cache_grace_period
+      entry = cache_entry
+      return if entry.nil? || Time.now - entry.fetch(:fetched_at) < cache_grace_period
 
       cache.delete(uri)
     end
