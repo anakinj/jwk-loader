@@ -20,9 +20,8 @@ RSpec.describe JwkLoader do
     end
 
     context "when configuration is given" do
-      # rubocop:disable Lint/ConstantDefinitionInBlock, Lint/EmptyClass
+      # rubocop:disable-next Lint/ConstantDefinitionInBlock, Lint/EmptyClass
       class YetAnotherCache; end
-      # rubocop:enable Lint/ConstantDefinitionInBlock, Lint/EmptyClass
 
       let(:cache) { YetAnotherCache.new }
       let(:cache_grace_period) { 12_345 }
