@@ -14,6 +14,12 @@ RSpec.describe JwkLoader::Config do
   end
 
   describe ".[]" do
+    it "returns an explicitly configured nil value" do
+      config[:cache_max_age] = nil
+
+      expect(config[:cache_max_age]).to be_nil
+    end
+
     it "raises an expection when a key is not present" do
       expect { config["key"] }.to raise_error(JwkLoader::Config::ConfigurationNotFound)
     end

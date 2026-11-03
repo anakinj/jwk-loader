@@ -12,6 +12,7 @@ module JwkLoader
     def for_uri(**options)
       options[:cache] ||= config[:cache]
       options[:cache_grace_period] ||= config[:cache_grace_period]
+      options[:cache_max_age] = config[:cache_max_age] unless options.key?(:cache_max_age)
       JwksUriProvider.new(**options)
     end
 
@@ -27,6 +28,7 @@ module JwkLoader
       @config ||= JwkLoader::Config.new.tap do |cfg|
         cfg[:cache] = MemoryCache.new
         cfg[:cache_grace_period] = 900
+        cfg[:cache_max_age] = nil
       end
     end
 

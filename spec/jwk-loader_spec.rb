@@ -25,17 +25,20 @@ RSpec.describe JwkLoader do
 
       let(:cache) { YetAnotherCache.new }
       let(:cache_grace_period) { 12_345 }
+      let(:cache_max_age) { 600 }
 
       before do
         JwkLoader.configure do |cfg|
           cfg[:cache] = cache
           cfg[:cache_grace_period] = cache_grace_period
+          cfg[:cache_max_age] = cache_max_age
         end
       end
 
       it "returns a provider with the given configuration" do
         expect(provider.cache).to be_a(YetAnotherCache)
         expect(provider.cache_grace_period).to eq(cache_grace_period)
+        expect(provider.cache_max_age).to eq(cache_max_age)
       end
 
       context "when using accessors" do
@@ -43,12 +46,14 @@ RSpec.describe JwkLoader do
           JwkLoader.configure do |cfg|
             cfg.cache = cache
             cfg.cache_grace_period = cache_grace_period
+            cfg.cache_max_age = cache_max_age
           end
         end
 
         it "returns a provider with the given configuration" do
           expect(provider.cache).to be_a(YetAnotherCache)
           expect(provider.cache_grace_period).to eq(cache_grace_period)
+          expect(provider.cache_max_age).to eq(cache_max_age)
         end
       end
     end

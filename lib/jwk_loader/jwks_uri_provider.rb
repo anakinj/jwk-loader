@@ -2,12 +2,14 @@
 
 module JwkLoader
   class JwksUriProvider
-    attr_reader :uri, :cache, :cache_grace_period
+    attr_reader :uri, :cache, :cache_grace_period, :cache_max_age
 
-    def initialize(uri:, cache:, cache_grace_period:)
+    def initialize(uri:, cache:, cache_grace_period:, cache_max_age: nil)
       @uri          = uri
       @cache        = cache
       @cache_grace_period = cache_grace_period
+      @cache_max_age = cache_max_age
+      validate_cache_max_age!
     end
 
     def call(options)
@@ -16,6 +18,14 @@ module JwkLoader
     end
 
     private
+
+    def validate_cache_max_age!
+      return if cache_max_age.nil?
+      return if cache_max_age.is_a?(Numeric) && cache_max_age.real? &&
+                cache_max_age.finite? && cache_max_age >= 0
+
+      raise ArgumentError, "cache_max_age must be nil or a finite non-negative number of seconds"
+    end
 
     def jwks
       from_cache || from_memory || from_uri
@@ -34,7 +44,11 @@ module JwkLoader
     end
 
     def from_cache
-      cache_entry&.fetch(:jwks)
+      entry = cache_entry
+      return if entry.nil?
+      return if cache_max_age && Time.now - entry.fetch(:fetched_at) >= cache_max_age
+
+      entry.fetch(:jwks)
     end
 
     def from_memory
