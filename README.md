@@ -71,6 +71,7 @@ require "jwt-loader"
 JwkLoader.configure do |config|
   config[:cache] = YetAnotherCache.new
   config[:cache_grace_period] = 999
+  config[:cache_max_age] = 600
 end
 ```
 
@@ -82,10 +83,20 @@ require "jwt-loader"
 JwkLoader.configure do |config|
   config.cache = YetAnotherCache.new
   config.cache_grace_period = 999
+  config.cache_max_age = 600
 end
 ```
 
-A failed refresh propagates the original loading exception for both `kid_not_found` and `invalidate` hints, without deleting the previous set or changing its timestamp. The triggering `JWT.decode` call fails with that exception. Subsequent ordinary lookups can still use the preserved keys. Since failures do not advance the timestamp, a later refresh hint can retry; there is no separate failed-fetch cooldown.
+`cache_max_age` optionally limits the lifetime of remotely cached sets, in seconds since the last successful fetch. It defaults to `nil` (no expiry). Once the age limit is reached, the next lookup fetches a replacement even for a known key and even within `cache_grace_period`. Expiry fails closed: if that fetch fails, the error propagates and expired keys are not returned. There is no background refresh or expired-key fallback. Use a finite non-negative number of seconds; `0` refreshes on every lookup. Locally supplied test keys are unaffected.
+
+The maximum age can also be set per URI; an explicit `nil` disables a global limit for that provider:
+
+```ruby
+JwkLoader.for_uri(uri: jwks_uri, cache_max_age: 300)
+JwkLoader.for_uri(uri: jwks_uri, cache_max_age: nil)
+```
+
+A failed refresh propagates the original loading exception for both `kid_not_found` and `invalidate` hints, without deleting the previous set or changing its timestamp. The triggering `JWT.decode` call fails with that exception. Subsequent ordinary lookups can still use preserved keys that have not expired. Since failures do not advance the timestamp, a later lookup requiring a refresh can retry; there is no separate failed-fetch cooldown.
 
 Invalidation hints are safe when the cache entry is absent or has been evicted: the provider performs an ordinary lookup, using locally supplied test keys or fetching the URI when needed.
 

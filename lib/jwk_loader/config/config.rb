@@ -13,7 +13,7 @@ module JwkLoader
     end
 
     def [](key)
-      registry[key] || (raise ConfigurationNotFound, key)
+      registry.fetch(key) { raise ConfigurationNotFound, key }
     end
 
     def method_missing(name, *args)
