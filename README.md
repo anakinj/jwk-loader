@@ -71,6 +71,7 @@ require "jwt-loader"
 JwkLoader.configure do |config|
   config[:cache] = YetAnotherCache.new
   config[:cache_grace_period] = 999
+  config[:cache_failure_cooldown] = 30
 end
 ```
 
@@ -82,10 +83,22 @@ require "jwt-loader"
 JwkLoader.configure do |config|
   config.cache = YetAnotherCache.new
   config.cache_grace_period = 999
+  config.cache_failure_cooldown = 30
 end
 ```
 
-A failed refresh propagates the original loading exception for both `kid_not_found` and `invalidate` hints, without deleting the previous set or changing its timestamp. The triggering `JWT.decode` call fails with that exception. Subsequent ordinary lookups can still use the preserved keys. Since failures do not advance the timestamp, a later refresh hint can retry; there is no separate failed-fetch cooldown.
+A failed refresh propagates the original loading exception for both `kid_not_found` and `invalidate` hints, without deleting the previous set or changing its timestamp. The triggering `JWT.decode` call fails with that exception. Subsequent ordinary lookups can still use the preserved keys.
+
+`cache_failure_cooldown` optionally delays retries after HTTP, connection/TLS, timeout, decompression, URI, JSON, or JWK loading errors. It defaults to `0`, preserving immediate retries without caching failures. Use a finite non-negative number of seconds, globally as above or per provider:
+
+```ruby
+JwkLoader.for_uri(uri: jwks_uri, cache_failure_cooldown: 30)
+JwkLoader.for_uri(uri: jwks_uri, cache_failure_cooldown: 0)
+```
+
+During the cooldown, a lookup that would fetch the URI raises the cached native loading exception without another request. Ordinary cached-key lookups and locally supplied test keys remain usable. Retries are allowed once the cooldown has elapsed since the last failed fetch completed; a successful fetch clears failure state. A successful response missing a requested `kid` is not a loading failure. This does not coalesce concurrent fetches or implement exponential backoff.
+
+Each URI's cache entry retains `jwks` and `fetched_at` from the last successful fetch, plus an optional `failure` hash containing `error`, `failed_at`, and `consecutive_failures`. Before any successful fetch, `jwks` and `fetched_at` are `nil`. Only actual failed fetches increment the count, not lookups suppressed by the cooldown; success resets it. Keeping failure results, timestamps, and counts in the shared cache allows providers using the same backend to share cooldown state and leaves the state needed for future exponential backoff. Custom cache backends must retain Ruby exception objects as well as key sets and timestamps; cache-backend errors propagate rather than being cached as loading failures.
 
 Invalidation hints are safe when the cache entry is absent or has been evicted: the provider performs an ordinary lookup, using locally supplied test keys or fetching the URI when needed.
 
