@@ -11,8 +11,8 @@ module JwkLoader
     end
 
     def call(options)
-      invalidate_cache! if options[:kid_not_found] || options[:invalidate]
-      jwks
+      refreshed = refresh_cache! if options[:kid_not_found] || options[:invalidate]
+      refreshed || jwks
     end
 
     private
@@ -21,11 +21,16 @@ module JwkLoader
       from_cache || from_memory || from_uri
     end
 
-    def invalidate_cache!
+    def refresh_cache!
       entry = cache_entry
       return if entry.nil? || Time.now - entry.fetch(:fetched_at) < cache_grace_period
 
-      cache.delete(uri)
+      if (keys = from_memory)
+        cache.delete(uri)
+        keys
+      else
+        from_uri
+      end
     end
 
     def from_cache
