@@ -11,6 +11,8 @@ module JwkLoader
         uri = URI.parse(uri) unless uri.is_a?(URI)
 
         response = Net::HTTP.get_response(uri)
+        response.value # Raises for non-2xx HTTP responses.
+
         from_json(response.body)
       end
 
