@@ -3,7 +3,8 @@
   "include-v-in-tag": true,
   "packages": {
     ".": {
-      "version-file": "lib/jwk_loader/version.rb"
+      "version-file": "lib/jwk_loader/version.rb",
+      "release-as": "1.3.0"
     }
   }
 }
