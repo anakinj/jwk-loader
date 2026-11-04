@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.3.0](https://github.com/anakinj/jwk-loader/compare/v1.2.0...v1.3.0) (2026-11-03)
+
+
+### Features
+
+* add optional maximum JWKS cache age ([#23](https://github.com/anakinj/jwk-loader/issues/23)) ([725482e](https://github.com/anakinj/jwk-loader/commit/725482e97cfb30ddc7792eb35d9f35fb792cba2d))
+
+
+### Bug Fixes
+
+* handle absent cache entries during invalidation ([#18](https://github.com/anakinj/jwk-loader/issues/18)) ([0942d81](https://github.com/anakinj/jwk-loader/commit/0942d81b924928687e7408c85a9378ac9427af45))
+* preserve cached JWKS when refreshing fails ([#17](https://github.com/anakinj/jwk-loader/issues/17)) ([cd4e68b](https://github.com/anakinj/jwk-loader/commit/cd4e68b6f4f6c01ef5aa7b1be430da4df606a0e8))
+* reject unsuccessful JWKS HTTP responses ([#16](https://github.com/anakinj/jwk-loader/issues/16)) ([edf46b9](https://github.com/anakinj/jwk-loader/commit/edf46b92001c5348e51c309fa24523991b91275a))
+
 ## [1.2.0](https://github.com/anakinj/jwk-loader/compare/v1.1.0...v1.2.0) (2025-07-02)
 
 
